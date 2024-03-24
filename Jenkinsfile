@@ -5,7 +5,24 @@ pipeline{
         maven "maven"
     }
 
+    environment{
+           APP_NAME = "spring-docker-cicd"
+           RELEASE_NO= "1.0.0"
+           DOCKER_USER= "skumary200"
+           IMAGE_NAME= "${DOCKER_USER}"+"/"+"${APP_NAME}"
+           IMAGE_TAG= "${RELEASE_NO}-${BUILD_NUMBER}"
+    }
+
     stages{
+
+        stage("print"){
+            steps{
+                script{
+                     bat 'echo %IMAGE_NAME%'
+                }
+
+            }
+        }
 
         stage("SCM checkout"){
             steps{
@@ -18,6 +35,22 @@ pipeline{
                bat 'mvn clean install'
             }
         }
+
+        stage("Docker Image Build"){
+            steps{
+                bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
+            }
+        }
+
+        stage("Deploy image to hub"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-secret', variable: 'docker-secret')]) {
+                    bat 'docker login -u skumary200 -p %docker-secret%'
+                    bat 'docker push %IMAGE_NAME%:%IMAGE_TAG%'
+                }
+            }
+        }
+
 
     }
 
