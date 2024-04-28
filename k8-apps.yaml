@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: user-app-container
-          image: skumary200/spring-docker-cicd:1.0.0-41
+          image: skumary200/spring-docker-cicd:1.0.0-4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8010
