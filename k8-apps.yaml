@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Namespace
 metadata:
   name: dockerapp
@@ -27,7 +27,7 @@ spec:
             - containerPort: 8010
 
 ---
-apiVersion: apps/v1
+apiVersion: v1
 kind: Service
 metadata:
   name: userapp-service
