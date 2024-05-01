@@ -19,7 +19,7 @@ public class DockerDemoApplication extends SpringBootServletInitializer {
 
 	@GetMapping("/greetings/{name}")
 	public String getGreetings(@PathVariable String name){
-		return "Hello "+ name + " Welcome Docker Application from Image-v1";
+		return "Hello "+ name + " Welcome Docker Application from Image-v2";
 	}
 
 
